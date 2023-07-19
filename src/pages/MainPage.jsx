@@ -1,10 +1,11 @@
 import { useState } from "react";
 import FragmentInfo from "../components/FragmentInfo";
-import NextButton from "../components/NextButton";
+import NavMenu from "../components/NavMenu";
 import MobileHeader from "../components/MobileHeader";
 import useWindowDimensions from "../utils/useWindowDimensions";
 import checkMobile from "../utils/checkMobile";
-import DesktopNavbar from "../components/DestopNavbar";
+import DesktopNavbar from "../components/DesktopNavbar";
+import FragmentPlan from "../components/FragmentPlan";
 
 const MainPage = () => {
   const [step, setStep] = useState(1);
@@ -13,10 +14,20 @@ const MainPage = () => {
 
   const Fragment = () => {
     if (step === 1) return <FragmentInfo />;
-    if (step === 2) return <p>wakwaw</p>;
+    if (step === 2) return <FragmentPlan />;
     if (step === 3) return <FragmentInfo />;
     if (step === 4) return <FragmentInfo />;
     return "";
+  };
+
+  const eventNextHandler = () => {
+    if (step === 4) return "";
+    setStep(step + 1);
+  };
+
+  const eventBackHandler = () => {
+    if (step === 0) return "";
+    setStep(step - 1);
   };
 
   console.log(step);
@@ -28,10 +39,15 @@ const MainPage = () => {
       {isMobile ? (
         <>
           <MobileHeader setStep={setStep} step={step} />
-          <div className='w-11/12 bg-white rounded-lg top-28 right-0 left-0 mx-auto absolute pt-5 p-7 '>
+          <div className='w-11/12 bg-white rounded-lg top-[6.5rem] right-0 left-0 mx-auto absolute p-7 '>
             {Fragment()}
           </div>
-          <NextButton isMobile={true} />
+          <NavMenu
+            isMobile={true}
+            eventNextHandler={eventNextHandler}
+            eventBackHandler={eventBackHandler}
+            step={step}
+          />
         </>
       ) : (
         <div className='w-4/5 h-5/6 bg-white rounded-lg flex items-center justify-between md:min-w-[50%] px-8'>
@@ -40,10 +56,13 @@ const MainPage = () => {
           </div>
           <div className='w-7/12 h-[95%] pl-10 pt-14 md:pr-20  flex flex-col justify-between'>
             <div>{Fragment()}</div>
-
-            <NextButton isMobile={false} onClick={() => setStep(step + 1)} />
+            <NavMenu
+              step={step}
+              isMobile={false}
+              eventNextHandler={eventNextHandler}
+              eventBackHandler={eventBackHandler}
+            />
           </div>
-          {/* <DesktopHeader />/ */}
         </div>
       )}
     </div>
