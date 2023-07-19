@@ -1,16 +1,14 @@
-const IndexPage = ({ isActive = true, size, number, onClick }) => {
+const IndexPage = ({ isActive, number }) => {
   const changeBg = (isActive) => {
-    if (isActive)
-      return "bg-pastelBlue bg-opa text-marineBlue border-marineBlue hover:bg-white";
-    return "bg-purplishBlue text-white border-white hover:bg-white/25";
+    if (isActive) return "bg-pastelBlue bg-opa text-marineBlue ";
+    return "bg-purplishBlue text-white border-[1px] border-white";
   };
 
   return (
     <div
-      onClick={onClick}
       className={`w-10 h-10 rounded-full 
       ${changeBg(isActive)}
-      m-2 flex justify-center items-center text-lg border-[1px] hover:cursor-pointer`}>
+      m-2 flex justify-center items-center text-lg font-medium`}>
       {number}
     </div>
   );
