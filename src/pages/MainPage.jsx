@@ -6,6 +6,7 @@ import useWindowDimensions from "../utils/useWindowDimensions";
 import checkMobile from "../utils/checkMobile";
 import DesktopNavbar from "../components/DesktopNavbar";
 import FragmentPlan from "../components/FragmentPlan";
+import FragmentAddOns from "../components/FragmentAddOns";
 
 const MainPage = () => {
   const [step, setStep] = useState(1);
@@ -13,7 +14,7 @@ const MainPage = () => {
   const width = useWindowDimensions();
 
   const eventNextHandler = () => {
-    if (step === 4) return "";
+    if (step > 3) return;
     setStep(step + 1);
   };
 
@@ -22,12 +23,25 @@ const MainPage = () => {
     setStep(step - 1);
   };
 
+  const [isYear, setIsYear] = useState(false);
+
+  const eventYearHandler = () => {
+    setIsYear(!isYear);
+  };
+
   const isMobile = checkMobile(width);
 
   const Fragment = () => {
     if (step === 1) return <FragmentInfo />;
-    if (step === 2) return <FragmentPlan isMobile={isMobile} />;
-    if (step === 3) return <FragmentInfo />;
+    if (step === 2)
+      return (
+        <FragmentPlan
+          isMobile={isMobile}
+          eventYearHandler={eventYearHandler}
+          isYear={isYear}
+        />
+      );
+    if (step === 3) return <FragmentAddOns isYear={isYear} />;
     if (step === 4) return <FragmentInfo />;
     return "";
   };

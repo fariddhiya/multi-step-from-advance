@@ -4,7 +4,8 @@ import advancedIcon from "../assets/images/icon-advanced.svg";
 import proIcon from "../assets/images/icon-pro.svg";
 import { useState } from "react";
 
-const FragmentPlan = ({ isMobile }) => {
+const FragmentPlan = ({ isMobile, isYear, eventYearHandler }) => {
+  console.log(isYear);
   const [selectedCard, setSelectedCard] = useState("Arcade");
 
   const planArray = [
@@ -12,12 +13,6 @@ const FragmentPlan = ({ isMobile }) => {
     { icon: advancedIcon, name: "Advanced", monthPrice: 12, yearPrice: 120 },
     { icon: proIcon, name: "Pro", monthPrice: 15, yearPrice: 150 },
   ];
-
-  const [isYear, setIsYear] = useState(false);
-
-  const eventYearHandler = () => {
-    setIsYear(!isYear);
-  };
 
   return (
     <>
@@ -52,7 +47,7 @@ const FragmentPlan = ({ isMobile }) => {
           Monthly
         </p>
         <div
-          className='w-12 bg-marineBlue h-7 rounded-full flex items-center pl-1'
+          className='w-12 bg-marineBlue h-7 rounded-full flex items-center pl-1 hover:cursor-pointer'
           onClick={eventYearHandler}>
           <div
             className={`w-5 h-5 rounded-full bg-white ${
