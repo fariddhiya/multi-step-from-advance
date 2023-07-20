@@ -10,7 +10,7 @@ const BackButton = ({ isMobile, eventBackHandler }) => {
   }
   return (
     <div
-      className='h-full w-1/6 flex items-center text-coolGray text-lg hover:cursor-pointer'
+      className='h-full w-20 flex items-center text-coolGray text-lg hover:cursor-pointer'
       onClick={eventBackHandler}>
       Go Back
     </div>

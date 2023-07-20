@@ -2,7 +2,6 @@ import BackButton from "./BackButton";
 import NextButton from "./NextButton";
 
 const NavMenu = ({ eventNextHandler, eventBackHandler, isMobile, step }) => {
-  console.log(step);
   if (isMobile) {
     return (
       <div className='absolute bottom-0 w-full h-[4.5rem] bg-white'>

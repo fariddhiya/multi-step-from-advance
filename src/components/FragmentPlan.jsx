@@ -4,7 +4,9 @@ import advancedIcon from "../assets/images/icon-advanced.svg";
 import proIcon from "../assets/images/icon-pro.svg";
 import { useState } from "react";
 
-const FragmentPlan = () => {
+const FragmentPlan = ({ isMobile }) => {
+  const [selectedCard, setSelectedCard] = useState("Arcade");
+
   const planArray = [
     { icon: arcadeIcon, name: "Arcade", monthPrice: 9, yearPrice: 90 },
     { icon: advancedIcon, name: "Advanced", monthPrice: 12, yearPrice: 120 },
@@ -18,25 +20,30 @@ const FragmentPlan = () => {
   };
 
   return (
-    <div className='w-full'>
-      <h1 className='text-marineBlue text-2xl font-semibold pb-3'>
+    <>
+      <h1 className='text-marineBlue text-2xl font-bold pb-3 md:text-4xl'>
         Select your plan
       </h1>
       <p className='pr-10 text-coolGray pb-4'>
         You have the option of monthly or yearly billing
       </p>
-      {planArray.map((element, key) => {
-        return (
-          <PlanCard
-            icon={element.icon}
-            name={element.name}
-            monthPrice={element.monthPrice}
-            isYear={isYear}
-            yearPrice={element.yearPrice}
-            key={key}
-          />
-        );
-      })}
+      <div className={isMobile ? "" : "flex justify-between"}>
+        {planArray.map((element, key) => {
+          return (
+            <PlanCard
+              icon={element.icon}
+              name={element.name}
+              monthPrice={element.monthPrice}
+              isYear={isYear}
+              yearPrice={element.yearPrice}
+              key={key}
+              eventCardHandler={setSelectedCard}
+              isActive={selectedCard === element.name ? true : false}
+              isMobile={isMobile}
+            />
+          );
+        })}
+      </div>
       <div className='h-14 bg-slate-400 mt-4 flex items-center justify-center bg-opacity-10'>
         <p
           className={`${
@@ -61,7 +68,7 @@ const FragmentPlan = () => {
           Yearly
         </p>
       </div>
-    </div>
+    </>
   );
 };
 

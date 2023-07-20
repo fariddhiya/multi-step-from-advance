@@ -12,14 +12,6 @@ const MainPage = () => {
 
   const width = useWindowDimensions();
 
-  const Fragment = () => {
-    if (step === 1) return <FragmentInfo />;
-    if (step === 2) return <FragmentPlan />;
-    if (step === 3) return <FragmentInfo />;
-    if (step === 4) return <FragmentInfo />;
-    return "";
-  };
-
   const eventNextHandler = () => {
     if (step === 4) return "";
     setStep(step + 1);
@@ -30,12 +22,18 @@ const MainPage = () => {
     setStep(step - 1);
   };
 
-  console.log(step);
-
   const isMobile = checkMobile(width);
 
+  const Fragment = () => {
+    if (step === 1) return <FragmentInfo />;
+    if (step === 2) return <FragmentPlan isMobile={isMobile} />;
+    if (step === 3) return <FragmentInfo />;
+    if (step === 4) return <FragmentInfo />;
+    return "";
+  };
+
   return (
-    <div className='bg-lightBlue h-screen md:flex md:items-center md:justify-center'>
+    <div className='bg-lightBlue w-full h-screen md:flex md:items-center md:justify-center'>
       {isMobile ? (
         <>
           <MobileHeader setStep={setStep} step={step} />
@@ -54,7 +52,7 @@ const MainPage = () => {
           <div className='bg-cover bg-center w-4/12 h-[95%] rounded-lg bg-sidebar-desktop pt-10 pl-5 max-w-[30rem]'>
             <DesktopNavbar setStep={setStep} step={step} />
           </div>
-          <div className='w-7/12 h-[95%] pl-10 pt-14 md:pr-20  flex flex-col justify-between'>
+          <div className='md:w-8/12 lg:7/12 h-[95%] md:pl-20 lg:pl-28 pt-14 md:pr-12  flex flex-col justify-between'>
             <div>{Fragment()}</div>
             <NavMenu
               step={step}
