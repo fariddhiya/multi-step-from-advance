@@ -9,6 +9,7 @@ import FragmentPlan from "../components/FragmentPlan";
 import FragmentAddOns from "../components/FragmentAddOns";
 import FragmentFinish from "../components/FragmentFinish";
 import { planData } from "../data/staticData";
+import FragmentThanks from "../components/FragmentThanks";
 
 const MainPage = () => {
   const [cart, setCart] = useState({
@@ -28,7 +29,7 @@ const MainPage = () => {
   const width = useWindowDimensions();
 
   const eventNextHandler = () => {
-    if (step > 3) return;
+    if (step > 4) return;
     setStep(step + 1);
   };
 
@@ -56,6 +57,7 @@ const MainPage = () => {
       );
     if (step === 3) return <FragmentAddOns cart={cart} setCart={setCart} />;
     if (step === 4) return <FragmentFinish cart={cart} setStep={setStep} />;
+    if (step === 5) return <FragmentThanks />;
   };
 
   return (
@@ -79,13 +81,17 @@ const MainPage = () => {
             <DesktopNavbar setStep={setStep} step={step} />
           </div>
           <div className='md:w-8/12 lg:7/12 h-[95%] md:pl-20 lg:pl-28 pt-14 md:pr-12  flex flex-col justify-between'>
-            <div>{Fragment()}</div>
-            <NavMenu
-              step={step}
-              isMobile={false}
-              eventNextHandler={eventNextHandler}
-              eventBackHandler={eventBackHandler}
-            />
+            <div className='h-full '>{Fragment()}</div>
+            {step <= 4 ? (
+              <NavMenu
+                step={step}
+                isMobile={false}
+                eventNextHandler={eventNextHandler}
+                eventBackHandler={eventBackHandler}
+              />
+            ) : (
+              ""
+            )}
           </div>
         </div>
       )}
