@@ -7,8 +7,22 @@ import checkMobile from "../utils/checkMobile";
 import DesktopNavbar from "../components/DesktopNavbar";
 import FragmentPlan from "../components/FragmentPlan";
 import FragmentAddOns from "../components/FragmentAddOns";
+import FragmentFinish from "../components/FragmentFinish";
+import { planData } from "../data/staticData";
 
 const MainPage = () => {
+  const [cart, setCart] = useState({
+    plan: planData[0].plan,
+    isYear: false,
+    price: planData[0].monthPrice,
+    addOnsArray: [],
+  });
+
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    phone: 0,
+  });
   const [step, setStep] = useState(1);
 
   const width = useWindowDimensions();
@@ -19,31 +33,29 @@ const MainPage = () => {
   };
 
   const eventBackHandler = () => {
-    if (step === 0) return "";
+    if (step < 1) return;
     setStep(step - 1);
   };
 
-  const [isYear, setIsYear] = useState(false);
-
   const eventYearHandler = () => {
-    setIsYear(!isYear);
+    setCart({ ...cart, isYear: !cart?.isYear });
   };
 
   const isMobile = checkMobile(width);
 
   const Fragment = () => {
-    if (step === 1) return <FragmentInfo />;
+    if (step === 1) return <FragmentInfo setUser={setUser} user={user} />;
     if (step === 2)
       return (
         <FragmentPlan
           isMobile={isMobile}
           eventYearHandler={eventYearHandler}
-          isYear={isYear}
+          cart={cart}
+          setCart={setCart}
         />
       );
-    if (step === 3) return <FragmentAddOns isYear={isYear} />;
-    if (step === 4) return <FragmentInfo />;
-    return "";
+    if (step === 3) return <FragmentAddOns cart={cart} setCart={setCart} />;
+    if (step === 4) return <FragmentFinish cart={cart} setStep={setStep} />;
   };
 
   return (

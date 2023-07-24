@@ -1,35 +1,31 @@
-import { useState } from "react";
 import AddOnsCard from "./AddOnsCard";
+import { addOnsData } from "../data/staticData";
 
-const FragmentAddOns = ({ isYear, isMobile }) => {
-  const AddOnsArray = [
-    {
-      name: "Online service",
-      desc: "Access to multiplayer games",
-      monthlyPrice: 1,
-      yearlyPrice: 10,
-    },
-    {
-      name: "Larger storage",
-      desc: "Extra 1TB of cloud save",
-      monthlyPrice: 2,
-      yearlyPrice: 20,
-    },
-    {
-      name: "Customizable profile",
-      desc: "Custom theme on your profile",
-      monthlyPrice: 2,
-      yearlyPrice: 20,
-    },
-  ];
-
-  const [valueActive, setValueActive] = useState([]);
-
+const FragmentAddOns = ({ cart, setCart }) => {
   const eventAddonsHandler = (value) => {
-    if (!valueActive.includes(value))
-      return setValueActive([...valueActive, value]);
-    setValueActive(valueActive.filter((element) => element !== value));
+    const existingAddOn = cart?.addOnsArray?.find(
+      (e) => e.label === value.label
+    );
+
+    if (existingAddOn) {
+      return setCart({
+        ...cart,
+        addOnsArray: cart.addOnsArray.filter((e) => e.label !== value.label),
+      });
+    }
+    setCart({
+      ...cart,
+      addOnsArray: [
+        ...cart.addOnsArray,
+        {
+          label: value.label,
+          price: cart?.isYear ? value.yearPrice : value.monthPrice,
+        },
+      ],
+    });
   };
+
+  console.log(cart?.addOnsArray);
 
   return (
     <>
@@ -39,17 +35,18 @@ const FragmentAddOns = ({ isYear, isMobile }) => {
       <p className='pr-10 text-coolGray pb-4'>
         Add-ons help enhance your gaming experience.
       </p>
-      {AddOnsArray.map((element, index) => {
+      {addOnsData.map((element, index) => {
         return (
           <AddOnsCard
             key={index}
-            name={element.name}
-            desc={element.desc}
-            monthlyPrice={element.monthlyPrice}
-            yearlyPrice={element.yearlyPrice}
-            eventAddonsHandler={() => eventAddonsHandler(element.name)}
-            isActive={valueActive.includes(element.name) ? true : false}
-            isYear={isYear}
+            value={element}
+            eventAddonsHandler={() => eventAddonsHandler(element)}
+            isActive={
+              !!cart?.addOnsArray.find((e) => e.label === element.label)
+                ? true
+                : false
+            }
+            cart={cart}
           />
         );
       })}

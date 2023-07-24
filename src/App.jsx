@@ -2,8 +2,6 @@ import MainPage from "./pages/MainPage";
 import "./styles/output.css";
 
 function App() {
-  console.log("test");
-
   return (
     <div className='App'>
       <MainPage />

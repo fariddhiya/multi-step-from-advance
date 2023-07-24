@@ -16,3 +16,11 @@
     --alabaster: hsl(231, 100%, 99%);
   }
 }
+
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}

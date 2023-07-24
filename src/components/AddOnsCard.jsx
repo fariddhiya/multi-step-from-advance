@@ -1,12 +1,4 @@
-const AddOnsCard = ({
-  name,
-  desc,
-  monthlyPrice,
-  yearlyPrice,
-  isActive,
-  isYear,
-  eventAddonsHandler,
-}) => {
+const AddOnsCard = ({ value, isActive, eventAddonsHandler, cart }) => {
   return (
     <div
       className={`flex justify-between items-center border-2 ${
@@ -24,13 +16,16 @@ const AddOnsCard = ({
         />
 
         <div className='h-12 md:h-auto w-full mr-4 flex flex-col justify-center '>
-          <p className='text-sm md:text-sm text-marineBlue font-bold'>{name}</p>
-          <p className='text-xs md:text-sm text-coolGray'>{desc}</p>
+          <p className='text-sm md:text-sm text-marineBlue font-bold'>
+            {value.label}
+          </p>
+          <p className='text-xs md:text-sm text-coolGray'>{value.desc}</p>
         </div>
       </div>
 
       <div className='text-purplishBlue'>
-        +{isYear ? yearlyPrice : monthlyPrice}/{isYear ? "yr" : "mo"}
+        +{cart?.isYear ? value.yearPrice : value.monthPrice}/
+        {cart?.isYear ? "yr" : "mo"}
       </div>
     </div>
   );
