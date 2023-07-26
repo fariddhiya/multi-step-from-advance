@@ -6,7 +6,10 @@ const MobileHeader = ({ setStep, step }) => {
       <IndexPage isActive={step === 1 ? true : false} number={1} />
       <IndexPage isActive={step === 2 ? true : false} number={2} />
       <IndexPage isActive={step === 3 ? true : false} number={3} />
-      <IndexPage isActive={step === 4 ? true : false} number={4} />
+      <IndexPage
+        isActive={step === 4 || step === 5 ? true : false}
+        number={4}
+      />
     </div>
   );
 };

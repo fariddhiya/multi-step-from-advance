@@ -31,7 +31,10 @@ const DesktopNavbar = ({ setStep, step }) => {
         </div>
       </div>
       <div className='flex items-center pb-3'>
-        <IndexPage number={4} isActive={step === 4 ? true : false} />
+        <IndexPage
+          number={4}
+          isActive={step === 4 || step === 5 ? true : false}
+        />
         <div className='flex flex-col justify-center pl-2.5'>
           <p className='text-lightGray text-sm '>STEP 4</p>
           <h3 className='text-white font-bold text-md tracking-wider'>

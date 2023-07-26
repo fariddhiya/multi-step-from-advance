@@ -25,8 +25,6 @@ const FragmentAddOns = ({ cart, setCart }) => {
     });
   };
 
-  console.log(cart?.addOnsArray);
-
   return (
     <>
       <h1 className='text-marineBlue text-2xl font-bold pb-3 md:text-4xl'>

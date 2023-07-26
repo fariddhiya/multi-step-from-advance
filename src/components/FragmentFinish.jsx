@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
 const FragmentFinish = ({ cart, setStep }) => {
-  console.log(cart);
   const [total, setTotal] = useState(cart?.price);
 
   const totalAddsOns = () => {
